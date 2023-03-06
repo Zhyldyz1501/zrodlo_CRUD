@@ -43,15 +43,15 @@ function App() {
     login: async({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
       if (profileObj) {
-        const response = await fetch("http://localhost:8080/users", {
+        const response = await fetch("https://zrodlo.onrender.com/users", {
           method: "POST",
-          headers: { "Content-Type" : "application/json"},
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: profileObj.name,
             email: profileObj.email,
             avatar: profileObj.picture,
-          })
-        })
+          }),
+        });
         const data = await response.json()
         if (response.status === 200) {
                   localStorage.setItem(
@@ -110,7 +110,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider("http://localhost:8080")}
+          dataProvider={dataProvider("https://zrodlo.onrender.com")}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
